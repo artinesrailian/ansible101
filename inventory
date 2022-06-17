@@ -1,2 +1,6 @@
-[node001]
+[ec2]
 44.202.240.147
+
+# Variable for ec2 servers
+[ec2:vars]
+ansible_user=ubuntu
