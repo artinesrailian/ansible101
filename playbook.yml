@@ -8,6 +8,6 @@
         state: present
     - name: Ensure NTP is running.
       systemd: 
-        name: ntpd
+        name: ntp
         state: started
         enabled: yes

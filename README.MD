@@ -1,1 +1,1 @@
-This is the learning course from GeerlingGuy on Youtube.
+This is the learning course from Jeff Geerling on Youtube.
