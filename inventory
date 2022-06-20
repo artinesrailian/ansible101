@@ -1,6 +1,13 @@
-[ec2]
-44.202.240.147
+[ubuntu]
+44.202.137.82
 
-# Variable for ec2 servers
-[ec2:vars]
+# Variable for ubuntu servers
+[ubuntu:vars]
 ansible_user=ubuntu
+
+[rhel]
+3.84.30.184
+
+# Variable for rhel servers
+[rhel:vars]
+ansible_user=ec2-user
