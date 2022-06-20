@@ -1,24 +1,32 @@
 ---
 - name: Install Apache.
-  hosts: ubuntu
+  hosts: all
   become: true
 
   handlers:
     - name: restart apache
       systemd: 
-        name: apache2
+        name: "{{ apache_service }}"
         state: restarted
+
+  pre_tasks:
+    - debug: var=ansible_os_family
+    - name: Load variable files.
+      include_vars: "{{ item }}"
+      with_first_found:
+        - "vars/apache_{{ ansible_os_family }}.yaml"
+        - "vars/apache_default.yaml"
 
   tasks:
     - name: Install Apache.
-      apt:
-        name: apache2
+      package:
+        name: "{{ apache_package }}"
         state: present
 
     - name: Copy test configuration files.
       copy:
         src: files/test.conf
-        dest: /etc/apache2/test.conf
+        dest: "{{ apache_config_dir }}/test.conf"
       notify: restart apache
 
     - name: Make sure handlers are flushed immediately.
@@ -26,6 +34,6 @@
 
     - name: Ensure Apache is started now and boot.
       systemd:
-        name: apache2
+        name: "{{ apache_service }}"
         state: started
         enabled: true
