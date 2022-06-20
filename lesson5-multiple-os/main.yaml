@@ -4,10 +4,7 @@
   become: true
 
   handlers:
-    - name: restart apache
-      systemd: 
-        name: "{{ apache_service }}"
-        state: restarted
+    - import_tasks: handlers/apache.yaml
 
   pre_tasks:
     - debug: var=ansible_os_family
@@ -18,22 +15,4 @@
         - "vars/apache_default.yaml"
 
   tasks:
-    - name: Install Apache.
-      package:
-        name: "{{ apache_package }}"
-        state: present
-
-    - name: Copy test configuration files.
-      copy:
-        src: files/test.conf
-        dest: "{{ apache_config_dir }}/test.conf"
-      notify: restart apache
-
-    - name: Make sure handlers are flushed immediately.
-      meta: flush_handlers
-
-    - name: Ensure Apache is started now and boot.
-      systemd:
-        name: "{{ apache_service }}"
-        state: started
-        enabled: true
+    - import_tasks: tasks/apache.yaml
