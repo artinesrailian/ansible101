@@ -5,7 +5,7 @@
 
   vars_files:
     - vars/password.yaml
-  
+
   tasks:
     - name: Echo the password key which injected into the env.
       shell: echo $MY_PASSWORD

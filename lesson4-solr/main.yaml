@@ -7,7 +7,7 @@
 
   pre_tasks:
     - name: Update apt cache if needed.
-      apt: 
+      apt:
         update_cache: true
         cache_valid_time: 3600
 
@@ -34,7 +34,7 @@
         src: "{{ download_dir }}/solr-{{ solr_version }}.tgz"
         remote_src: true
         creates: "{{ download_dir }}/solr-{{ solr_version }}/README.txt"
-    
+
     - name: Run Solr installation script.
       command: >
         {{ download_dir }}/solr-{{ solr_version }}/bin/install_solr__service.sh
@@ -44,7 +44,7 @@
         -s solr
         -p 8983
         creates={{ solr_dir }}/bin/solr
-    
+
     - name: Ensure Solr is started and enabled at boot.
       systemd:
         name: solr
